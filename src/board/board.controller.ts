@@ -11,8 +11,8 @@ export class BoardController {
 
     //게시물 목록 가져오기 API
     @Get('/articles')
-    getArticles() {
-        return this.boardService.getArticles();
+    async getArticles() {
+        return await this.boardService.getArticles();
     }
     // 게시물 상세보기 -> 게시물 ID
     // 여기서 number 타입의 articleId로 id라는 파라미터를 받으려고 했지만 실제로 articleId의 타입은 string
@@ -20,9 +20,9 @@ export class BoardController {
     // 사용해야 함
     //main.ts transform : true
     @Get('/articles/:id')
-    getArticleById(
+    async getArticleById(
       @Param('id') articleId: number) {
-        return this.boardService.getArticlesById(articleId);
+        return await this.boardService.getArticlesById(articleId);
     }
 
     //게시물 작성
@@ -36,20 +36,20 @@ export class BoardController {
 
     //게시물 수정
     @Put('/articles/:id')
-    updateArticle(
+    async updateArticle(
       @Param('id') articleId: number,
       @Body() data: UpdateArticleDto
     ) {
-        return this.boardService.updateArticle(articleId,
+        return await this.boardService.updateArticle(articleId,
           data.title,
           data.content,
           data.password);
     }
     @Delete('/articles/:id')
-    deleteArticle(
+    async deleteArticle(
       @Param('id') articleId: number,
       @Body() data: DeleteArticleDto,
       ) {
-        return this.boardService.deleteArticle(articleId, data.password);
+        return await this.boardService.deleteArticle(articleId, data.password);
     }
 }
